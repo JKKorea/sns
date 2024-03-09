@@ -11,11 +11,12 @@ Coded by www.creative-tim.com
  =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- */
+*/
 
 // @mui material components
-import {createTheme} from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 // import Fade from "@mui/material/Fade";
+
 // Material Dashboard 2 React base styles
 import colors from 'assets/theme-dark/base/colors';
 import breakpoints from 'assets/theme-dark/base/breakpoints';
@@ -66,8 +67,7 @@ import stepConnector from 'assets/theme-dark/components/stepper/stepConnector';
 import stepLabel from 'assets/theme-dark/components/stepper/stepLabel';
 import stepIcon from 'assets/theme-dark/components/stepper/stepIcon';
 import select from 'assets/theme-dark/components/form/select';
-import formControlLabel
-  from 'assets/theme-dark/components/form/formControlLabel';
+import formControlLabel from 'assets/theme-dark/components/form/formControlLabel';
 import formLabel from 'assets/theme-dark/components/form/formLabel';
 import checkbox from 'assets/theme-dark/components/form/checkbox';
 import radio from 'assets/theme-dark/components/form/radio';
@@ -81,8 +81,7 @@ import link from 'assets/theme-dark/components/link';
 import dialog from 'assets/theme-dark/components/dialog';
 import dialogTitle from 'assets/theme-dark/components/dialog/dialogTitle';
 import dialogContent from 'assets/theme-dark/components/dialog/dialogContent';
-import dialogContentText
-  from 'assets/theme-dark/components/dialog/dialogContentText';
+import dialogContentText from 'assets/theme-dark/components/dialog/dialogContentText';
 import dialogActions from 'assets/theme-dark/components/dialog/dialogActions';
 
 export default createTheme({

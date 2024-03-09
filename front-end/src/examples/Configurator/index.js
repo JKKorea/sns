@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import {useEffect, useState} from 'react';
+import { useState, useEffect } from 'react';
 
 // react-github-btn
 import GitHubButton from 'react-github-btn';
@@ -39,13 +39,13 @@ import ConfiguratorRoot from 'examples/Configurator/ConfiguratorRoot';
 
 // Material Dashboard 2 React context
 import {
-  setDarkMode,
-  setFixedNavbar,
+  useMaterialUIController,
   setOpenConfigurator,
-  setSidenavColor,
   setTransparentSidenav,
   setWhiteSidenav,
-  useMaterialUIController,
+  setFixedNavbar,
+  setSidenavColor,
+  setDarkMode,
 } from 'context';
 
 function Configurator() {
