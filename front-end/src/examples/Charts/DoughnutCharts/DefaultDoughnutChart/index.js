@@ -13,13 +13,13 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useMemo } from 'react';
+import {useMemo} from 'react';
 
 // porp-types is a library for typechecking of props
 import PropTypes from 'prop-types';
 
 // react-chartjs-2 components
-import { Doughnut } from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
 
 // @mui material components
 import Card from '@mui/material/Card';
@@ -30,7 +30,8 @@ import MDBox from 'components/MDBox';
 import MDTypography from 'components/MDTypography';
 
 // DefaultDoughnutChart configurations
-import configs from 'examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs';
+import configs
+  from 'examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs';
 
 function DefaultDoughnutChart({ icon, title, description, height, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {}, chart.cutout);

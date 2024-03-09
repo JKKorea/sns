@@ -13,10 +13,10 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
 // react-router components
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 // prop-types is a library for typechecking of props.
 import PropTypes from 'prop-types';
@@ -31,14 +31,16 @@ import MDTypography from 'components/MDTypography';
 import MDButton from 'components/MDButton';
 
 // Material Dashboard 2 React example components
-import DefaultNavbarLink from 'examples/Navbars/DefaultNavbar/DefaultNavbarLink';
-import DefaultNavbarMobile from 'examples/Navbars/DefaultNavbar/DefaultNavbarMobile';
+import DefaultNavbarLink
+  from 'examples/Navbars/DefaultNavbar/DefaultNavbarLink';
+import DefaultNavbarMobile
+  from 'examples/Navbars/DefaultNavbar/DefaultNavbarMobile';
 
 // Material Dashboard 2 React base styles
 import breakpoints from 'assets/theme/base/breakpoints';
 
 // Material Dashboard 2 React context
-import { useMaterialUIController } from 'context';
+import {useMaterialUIController} from 'context';
 
 function DefaultNavbar({ transparent, light, action }) {
   const [controller] = useMaterialUIController();
