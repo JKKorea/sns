@@ -5,7 +5,7 @@ import com.jk.sns.exception.ErrorCode;
 import com.jk.sns.exception.SimpleSnsApplicationException;
 import com.jk.sns.model.User;
 import com.jk.sns.model.entity.UserEntity;
-import com.jk.sns.repository.UserRepository;
+import com.jk.sns.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserEntityRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
     @Value("${jwt.secret-key}")
@@ -30,8 +30,8 @@ public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String userName) throws UsernameNotFoundException {
         return userRepository.findByUserName(userName).map(User::fromEntity).orElseThrow(
-                () -> new SimpleSnsApplicationException(
-                    ErrorCode.USER_NOT_FOUND, String.format("userName is %s", userName))
+            () -> new SimpleSnsApplicationException(
+                ErrorCode.USER_NOT_FOUND, String.format("userName is %s", userName))
         );
     }
 
@@ -47,10 +47,12 @@ public class UserService implements UserDetailsService {
     public User join(String userName, String password) {
         // check the userId not exist
         userRepository.findByUserName(userName).ifPresent(it -> {
-            throw new SimpleSnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("userName is %s", userName));
+            throw new SimpleSnsApplicationException(ErrorCode.DUPLICATED_USER_NAME,
+                String.format("userName is %s", userName));
         });
 
-        UserEntity savedUser = userRepository.save(UserEntity.of(userName, encoder.encode(password)));
+        UserEntity savedUser = userRepository.save(
+            UserEntity.of(userName, encoder.encode(password)));
         return User.fromEntity(savedUser);
     }
 }
