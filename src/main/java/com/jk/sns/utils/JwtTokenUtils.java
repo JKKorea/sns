@@ -1,4 +1,4 @@
-package com.jk.sns;
+package com.jk.sns.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,10 +18,10 @@ public class JwtTokenUtils {
 
     public static Claims extractAllClaims(String token, String key) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey(key))
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+            .setSigningKey(getSigningKey(key))
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
     }
 
     public static String getUsername(String token, String key) {
@@ -51,11 +51,11 @@ public class JwtTokenUtils {
         claims.put("username", username);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime))
-                .signWith(SignatureAlgorithm.HS256, getSigningKey(key))
-                .compact();
+            .setClaims(claims)
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + expireTime))
+            .signWith(SignatureAlgorithm.HS256, getSigningKey(key))
+            .compact();
     }
 
 

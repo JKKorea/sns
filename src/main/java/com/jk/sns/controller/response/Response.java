@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Response<T> {
+
     private String resultCode;
     private String resultMessage;
     private T result;
@@ -16,6 +17,14 @@ public class Response<T> {
 
     public static Response<Void> error(String resultCode, String resultMessage) {
         return new Response<Void>(resultCode, resultMessage, null);
+    }
+
+    public String toStream() {
+        return "{" +
+            "\"resultCode\":" + "\"" + resultCode + "\"," +
+            "\"resultMessage\":" + "\"" + resultMessage + "\"," +
+            "\"result\":" + "\"" + result + "\"," +
+            "}";
     }
 
 }

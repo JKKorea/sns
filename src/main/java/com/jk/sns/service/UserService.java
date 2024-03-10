@@ -1,11 +1,11 @@
 package com.jk.sns.service;
 
-import com.jk.sns.JwtTokenUtils;
 import com.jk.sns.exception.ErrorCode;
 import com.jk.sns.exception.SimpleSnsApplicationException;
 import com.jk.sns.model.User;
 import com.jk.sns.model.entity.UserEntity;
 import com.jk.sns.repository.UserEntityRepository;
+import com.jk.sns.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;

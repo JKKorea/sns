@@ -1,6 +1,7 @@
 package com.jk.sns.configuration;
 
 import com.jk.sns.configuration.filter.JwtTokenFilter;
+import com.jk.sns.exception.CustomAuthenticationEntryPoint;
 import com.jk.sns.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,22 +34,29 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg",
-                        "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js", "/manifest.json")
-                .antMatchers("/resources/**")
-                .antMatchers(HttpMethod.POST, "/api/*/users/join", "/api/*/users/login");
+            .antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg",
+                "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js", "/manifest.json", "/static/**")
+            .antMatchers("/resources/**")
+            .antMatchers(HttpMethod.POST, "/api/*/users/join", "/api/*/users/login")
+            .antMatchers(HttpMethod.GET, "/post", "/authentication/sign-in",
+                "/authentication/sign-up",
+                "/my-post", "/feed");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(new JwtTokenFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class);
+            .authorizeRequests()
+            .antMatchers("/api/**").authenticated()
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+            .and()
+            .addFilterBefore(new JwtTokenFilter(userService, secretKey),
+                UsernamePasswordAuthenticationFilter.class);
 
 
     }
