@@ -16,12 +16,16 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 
 @Setter
 @Getter
 @Entity
 @Table(name = "\"user\"")
+@SQLDelete(sql = "UPDATE \"user\" SET removed_at = NOW() WHERE id=?")
+@Where(clause = "removed_at is NULL")
 @NoArgsConstructor
 public class UserEntity {
 
