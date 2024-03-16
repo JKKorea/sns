@@ -8,14 +8,13 @@ import com.jk.sns.repository.UserEntityRepository;
 import com.jk.sns.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserEntityRepository userRepository;
     private final BCryptPasswordEncoder encoder;
@@ -26,8 +25,6 @@ public class UserService implements UserDetailsService {
     @Value("${jwt.token.expired-time-ms}")
     private Long expiredTimeMs;
 
-
-    @Override
     public User loadUserByUsername(String userName) throws UsernameNotFoundException {
         return userRepository.findByUserName(userName).map(User::fromEntity).orElseThrow(
             () -> new SimpleSnsApplicationException(

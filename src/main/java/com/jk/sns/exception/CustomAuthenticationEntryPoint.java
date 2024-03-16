@@ -16,7 +16,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setContentType("application/json");
         response.setStatus(ErrorCode.INVALID_TOKEN.getStatus().value());
         response.getWriter().write(
-            Response.error(ErrorCode.INVALID_TOKEN.name(), ErrorCode.INVALID_TOKEN.getMessage())
+            Response.error(ErrorCode.INVALID_TOKEN.name())
                 .toStream());
     }
 }
