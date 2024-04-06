@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @SpringBootTest
@@ -52,18 +53,6 @@ public class PostServiceTest {
         SimpleSnsApplicationException exception = Assertions.assertThrows(
             SimpleSnsApplicationException.class,
             () -> postService.create(fixture.getUserName(), fixture.getTitle(), fixture.getBody()));
-
-        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, exception.getErrorCode());
-    }
-
-    @Test
-    void 내_포스트리스트를_가져올_유저가_존재하지_않으면_에러를_내뱉는다() {
-        TestInfoFixture.TestInfo fixture = TestInfoFixture.get();
-        when(userEntityRepository.findByUserName(fixture.getUserName())).thenReturn(
-            Optional.empty());
-        SimpleSnsApplicationException exception = Assertions.assertThrows(
-            SimpleSnsApplicationException.class,
-            () -> postService.my(fixture.getUserName(), mock(Pageable.class)));
 
         Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, exception.getErrorCode());
     }
@@ -151,5 +140,32 @@ public class PostServiceTest {
             SimpleSnsApplicationException.class,
             () -> postService.delete(fixture.getUserName(), fixture.getPostId()));
         Assertions.assertEquals(ErrorCode.INVALID_PERMISSION, exception.getErrorCode());
+    }
+
+    @Test
+    void 내_포스트리스트를_가져올_유저가_존재하지_않으면_에러를_내뱉는다() {
+        TestInfoFixture.TestInfo fixture = TestInfoFixture.get();
+        when(userEntityRepository.findByUserName(fixture.getUserName())).thenReturn(
+            Optional.empty());
+        SimpleSnsApplicationException exception = Assertions.assertThrows(
+            SimpleSnsApplicationException.class,
+            () -> postService.my(fixture.getUserName(), mock(Pageable.class)));
+
+        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, exception.getErrorCode());
+    }
+
+
+    @Test
+    void 포스트목록요청이_성공한경우() {
+        Pageable pageable = mock(Pageable.class);
+        when(postEntityRepository.findAll(pageable)).thenReturn(Page.empty());
+        Assertions.assertDoesNotThrow(() -> postService.list(pageable));
+    }
+
+    @Test
+    void 내포스트목록요청이_성공한경우() {
+        Pageable pageable = mock(Pageable.class);
+        when(postEntityRepository.findAllByUser(any(), pageable)).thenReturn(Page.empty());
+        Assertions.assertDoesNotThrow(() -> postService.my("", pageable));
     }
 }
